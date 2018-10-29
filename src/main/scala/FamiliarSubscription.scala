@@ -9,7 +9,7 @@ class FamiliarSubscription(initialRentals: Seq[Rental]) extends Subscription {
     }
 
     val totalWithoutDiscount = rentals.map(_.getCost.getOrElse(0)).sum
-    Math.ceil(totalWithoutDiscount * familyDiscount).toInt
+    Math.ceil(totalWithoutDiscount * (1 - familyDiscount)).toInt
   }
 
   def addRental(rental: Rental): Unit = {
@@ -21,6 +21,6 @@ class FamiliarSubscription(initialRentals: Seq[Rental]) extends Subscription {
   }
 
   def haveRentalsEnded: Boolean = {
-    rentals.map(_.endValue.isDefined).reduce(_&&_)
+    rentals.forall(_.endTime.isDefined)
   }
 }

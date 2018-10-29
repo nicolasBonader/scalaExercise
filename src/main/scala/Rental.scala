@@ -1,11 +1,6 @@
 import Config._
 
-sealed trait RentalType
-case class Hourly() extends RentalType
-case class Daily() extends RentalType
-case class Weekly() extends RentalType
-
-class Rental(val startValue: Long, val endValue: Option[Long] = None, val `type`: RentalType = Hourly()) {
+class Rental(val startTime: Long, val endTime: Option[Long] = None, val `type`: RentalType = Hourly()) {
   private val milisInAnHour = 3600000
   private val milisInADay = milisInAnHour * 24
   private val milisInAWeek = milisInADay * 7
@@ -19,8 +14,8 @@ class Rental(val startValue: Long, val endValue: Option[Long] = None, val `type`
   def this(startValue: Long) = this(startValue, Hourly())
 
   def getCost: Option[Int] = {
-    endValue map { someEndValue =>
-      val timeDiff = someEndValue - startValue
+    endTime map { someEndTime =>
+      val timeDiff = someEndTime - startTime
       `type` match {
         case Hourly() => costPerHour * getHours(timeDiff)
         case Daily() => costADay + costPerHour * getHours(timeDiff - milisInADay)

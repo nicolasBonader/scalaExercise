@@ -6,22 +6,22 @@ class IndividualSubscription(initialRental: Rental) extends Subscription {
   }
 
   def startTime: Long = {
-    rental.startValue
+    rental.startTime
   }
 
   def hasEnded: Boolean = {
-    rental.endValue.isDefined
+    rental.endTime.isDefined
   }
 
   def endTime: Long = {
-    if (rental.endValue.isEmpty) {
+    if (rental.endTime.isEmpty) {
       throw new IllegalStateException("Cannot get end time of a ongoing subscription")
     }
 
-    rental.endValue.get
+    rental.endTime.get
   }
 
   def endSubscription(time: Long): Unit = {
-    rental = new Rental(rental.startValue, time, rental.`type`)
+    rental = new Rental(rental.startTime, time, rental.`type`)
   }
 }
