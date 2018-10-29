@@ -2,6 +2,8 @@ import org.scalatest.FunSuite
 
 class IndividualSubscriptionTest extends FunSuite {
 
+  implicit val config: Config = DefaultConfig
+
   test("subscription should get cost from rental") {
     val rental = new Rental(0L, 10L)
     val sub = new IndividualSubscription(rental)

@@ -1,19 +1,17 @@
-import Config._
-
-class FamiliarSubscription(initialRentals: Seq[Rental]) extends Subscription {
+class FamilySubscription(initialRentals: Seq[Rental])(implicit config: Config) extends Subscription {
   private var rentals: Seq[Rental] = initialRentals
 
   override def getCost(): Int = {
-    if (familyMinRentals > rentals.length) {
+    if (config.familyMinRentals > rentals.length) {
       throw new IllegalStateException("Familiy subscription does not have the minimum number of rentals")
     }
 
     val totalWithoutDiscount = rentals.map(_.getCost.getOrElse(0)).sum
-    Math.ceil(totalWithoutDiscount * (1 - familyDiscount)).toInt
+    Math.ceil(totalWithoutDiscount * (1 - config.familyDiscount)).toInt
   }
 
   def addRental(rental: Rental): Unit = {
-    if (rentals.length < familyMaxRentals) {
+    if (rentals.length < config.familyMaxRentals) {
       rentals = Seq(rental) ++ rentals
     } else {
       throw new IllegalStateException("Family subscription already has the maximum number of rentals")

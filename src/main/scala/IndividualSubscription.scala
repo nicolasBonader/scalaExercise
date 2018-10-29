@@ -1,4 +1,4 @@
-class IndividualSubscription(initialRental: Rental) extends Subscription {
+class IndividualSubscription(initialRental: Rental)(implicit val config: Config) extends Subscription {
   private var rental = initialRental
 
   override def getCost: Int = {
