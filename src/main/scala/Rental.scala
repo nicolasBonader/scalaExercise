@@ -1,16 +1,11 @@
+import Config._
+
 sealed trait RentalType
 case class Hourly() extends RentalType
 case class Daily() extends RentalType
 case class Weekly() extends RentalType
 
-object Config {
-  val costPerHour = 5
-  val costADay = 20
-  val costAWeek = 60
-}
-
 class Rental(val startValue: Long, val endValue: Option[Long] = None, val `type`: RentalType = Hourly()) {
-  import Config._
   private val milisInAnHour = 3600000
   private val milisInADay = milisInAnHour * 24
   private val milisInAWeek = milisInADay * 7
@@ -23,7 +18,7 @@ class Rental(val startValue: Long, val endValue: Option[Long] = None, val `type`
 
   def this(startValue: Long) = this(startValue, Hourly())
 
-  def getCost(): Option[Int] = {
+  def getCost: Option[Int] = {
     endValue map { someEndValue =>
       val timeDiff = someEndValue - startValue
       `type` match {
