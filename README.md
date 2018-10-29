@@ -7,7 +7,7 @@ This is the main skeleton of an application of a bike rental company. People can
 3. Rental by week, changing $60 a week
 4. Family Rental, is a promotion that can include from 3 to 5 Rentals (of any type) with a discount of 30% of the total price
 
-To model this problem there three main classes: `Rental`, `IndividualSubscription` and `FamilySubscription`
+To model this problem there are three main classes: `Rental`, `IndividualSubscription` and `FamilySubscription`
 
 `Rental` class models the three types of rental (per hour, by day or by week) as well as the logic needed to charge accordingly.
 
